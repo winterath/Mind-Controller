@@ -14,13 +14,13 @@ bands = {
     'Space': (14.5, 15.5) # 15 Hz ± 0.5 Hz
 }
 
-# Define power thresholds (adjust based on actual data)
+# Define power thresholds (all set to 20 Hz)
 thresholds = {
-    'W': 1000,
-    'A': 1000,
-    'S': 1000,
-    'D': 1000,
-    'Space': 1000
+    'W': 20,
+    'A': 20,
+    'S': 20,
+    'D': 20,
+    'Space': 20
 }
 
 # Map keys to pynput key objects
@@ -32,9 +32,9 @@ key_map = {
     'Space': Key.space
 }
 
-# Initialize synthetic board
+# Initialize NeuroPawn Knight board
 params = BrainFlowInputParams()
-board = BoardShim(BoardIds.SYNTHETIC_BOARD.value, params)
+board = BoardShim(BoardIds.NEUROPAWN_KNIGHT_BOARD.value, params)
 board.prepare_session()
 board.start_stream()
 
@@ -50,11 +50,11 @@ try:
             continue
 
         # Extract first EEG channel
-        eeg_channels = BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value)
+        eeg_channels = BoardShim.get_eeg_channels(BoardIds.NEUROPAWN_KNIGHT_BOARD.value)
         signal = data[eeg_channels[0]]
 
         # Apply bandpass filter (1-20 Hz)
-        sampling_rate = board.get_sampling_rate(BoardIds.SYNTHETIC_BOARD.value)
+        sampling_rate = board.get_sampling_rate(BoardIds.NEUROPAWN_KNIGHT_BOARD.value)
         DataFilter.perform_bandpass(signal, sampling_rate, 1.0, 20.0, 4, FilterTypes.BUTTERWORTH.value, 0)
 
         # Compute power spectral density
