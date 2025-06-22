@@ -16,7 +16,7 @@ pip install brainflow
 python SSVEP_tiles.py
 ```
 ```
-python frequency_key_trigger.py
+python python_package/brainflow/frequency_key_trigger.py
 ```
 
 Now you're set!
